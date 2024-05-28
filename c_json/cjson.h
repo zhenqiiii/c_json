@@ -140,7 +140,19 @@ cJSON* cJSON_CreateNull(void);
 void cJSON_AddItemToObject(cJSON* object, char* string, cJSON* item);
 
 //和上一个函数类似，将item加入到array（是一个CJSON_ARRAY类型节点）子节点中，已有子节点则加入子节点链表末尾，逻辑上加到数组的末尾
-void cJSON_CreateArray(cJSON* array, cJSON* item);
+void cJSON_AddArray(cJSON* array, cJSON* item);
+
+
+cJSON* cJSON_ParseWithOpts(const char* value, const char** return_parse_end, int require_null_terminated);
+
+const char* parse_value(cJSON* item, const char* value);//总的处理各种类型值的函数，它会调用根据值的实际类型去调用下面几种函数
+
+const char *parse_string(cJSON*item,const char*str);
+const char* parse_number(cJSON* item, const char* num);
+const char* parse_array(cJSON* item, const char* value);
+const char* parse_object(cJSON* item, const char* value);
+
+const char* skip(const char* in);//跳过一些东西
 
 
 #endif
